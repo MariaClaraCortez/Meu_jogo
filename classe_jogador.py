@@ -11,11 +11,11 @@ class Jogador:
                         pygame.image.load(resource_path('src/img/indo_esquerda.png'))]
         self.imagem = lista_coelhos[0]
 
-        self.imagem = pygame.transform.scale(self.imagem,(100,100))
-        self.imagem = pygame.mask.from_surface(self.imagem)
+        self.imagem = pygame.transform.scale(self.imagem,(200,200))
+        self.mascara = pygame.mask.from_surface(self.imagem)
 
-        self.pos_imagem_x = 100
-        self.pos_imagem_y = 100
+        self.pos_imagem_x = 520
+        self.pos_imagem_y = 520
         
 
     def andar(self,tecla_pressionada):
