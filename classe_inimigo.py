@@ -1,7 +1,7 @@
 import pygame
 import random
 
-class Garrafinhas:
+class Inimigo:
     
     def __init__(self,endereco_imagem):
         self.imagem = pygame.image.load(endereco_imagem)

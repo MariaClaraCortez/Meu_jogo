@@ -1,7 +1,10 @@
 import pygame
 from caminho_relativo import resource_path
-from classe_garrafinhas import Garrafinhas
+from classe_inimigo import Inimigo
 from classe_jogador import Jogador
+from classe_garrafinha import Vida
+
+
 
 pygame.init()
 
@@ -13,11 +16,11 @@ tela = pygame.display.set_mode((1200,800))
 pygame.display.set_caption("Beber ou Morrer")
 
 
-lista_vidas = [Garrafinhas(resource_path('src/img/garrafa_azul.png')),
-               Garrafinhas(resource_path('src/img/garrafa_rosa.png')),
-               Garrafinhas(resource_path('src/img/garrafa_roxa.png')),
-               Garrafinhas(resource_path('src/img/garrafa_verde.png')),
-               Garrafinhas(resource_path('src/img/garrafa_vermelha.png'))]
+lista_vidas = [Vida(resource_path('src/img/garrafa_azul.png')),
+               Vida(resource_path('src/img/garrafa_rosa.png')),
+               Vida(resource_path('src/img/garrafa_roxa.png')),
+               Vida(resource_path('src/img/garrafa_verde.png')),
+               Vida(resource_path('src/img/garrafa_vermelha.png'))]
 
 status_jogo = "INICIO"
 
@@ -63,6 +66,24 @@ while rodando:
 
         coelho.andar(tecla_pressionada)
         coelho.exbir(tela)
+
+        for vida in lista_vidas:
+            vida.andar()
+            vida.exibir(tela)
+
+            if coelho.contorno.overlap(vida.contorno,(vida.pos_imagem_x - coelho.pos_imagem_x,vida.pos_imagem_y - coelho.pos_imagem_y)):
+                mortes += 1
+                vida.voltar()
+        for inimigo in lista_inimigos:
+            inimigo.andar()
+            inimigo.exibir(tela)
+
+            if coelho.contorno.overlap(inimigo.contorno,(inimigo.pos_imagem_x - coelho.pos_imagem_x,inimigo.pos_maca_y - coelho.pos_imagem_y)):
+                mortes -= 1
+                coelho.morte()
+                coelho.voltar()
+                if mortes == 0:
+                    status_jogo = "PERDEU"
 
 
   
