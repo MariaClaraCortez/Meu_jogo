@@ -1,6 +1,7 @@
 import pygame
 from caminho_relativo import resource_path
 from classe_garrafinhas import Garrafinhas
+from classe_jogador import Jogador
 
 pygame.init()
 
@@ -24,6 +25,15 @@ fundo = pygame.image.load(resource_path("src/img/fundo.png"))
 fundo = pygame.transform.scale(fundo,(1200,800))
 inicio = pygame.image.load(resource_path("src/img/inicio.png"))
 
+
+
+pontos = 0
+vidas = 3
+coelho = Jogador()
+fonte_texto = pygame.font.SysFont("Arial",20,True)
+fonte_text = pygame.font.SysFont("Segoe UI Emoji",18,True)
+
+
 rodando = True
 while rodando:
     #pego todos os eventos que aconteceu na jaenla
@@ -44,17 +54,18 @@ while rodando:
         if tecla_pressionada [pygame.K_RETURN] or tecla_pressionada [pygame.K_KP_ENTER]:
             status_jogo = "JOGANDO"
     if status_jogo == "JOGANDO":
-         tela.blit(fundo,(0,0))
+        tela.blit(fundo,(0,0))
+        texto_vidas =fonte_text.render(f"VIDAS: {'❤'*vidas}",False,(0,0,0))
+        tela.blit(texto_vidas,(500,65))
+        texto_pontos =fonte_texto.render(f"PONTOS: {pontos}",False,(0,0,0))
+        tela.blit(texto_pontos,(520,40))
 
 
+        coelho.andar(tecla_pressionada)
+        coelho.exbir(tela)
 
 
-
-
-
-
-
-        
+  
     pygame.display.update()
     
     clock.tick(100)
