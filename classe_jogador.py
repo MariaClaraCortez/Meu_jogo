@@ -16,7 +16,7 @@ class Jogador:
 
         self.pos_imagem_x = 100
         self.pos_imagem_y = 100
-        self.som_morte = pygame.mixer.Sound(resource_path("sons/mortes.mp3"))
+        
 
     def andar(self,tecla_pressionada):
         if tecla_pressionada [pygame.K_RIGHT]:  
@@ -33,5 +33,4 @@ class Jogador:
         self.pos_imagem_x = 100
         self.pos_imagem_y = 100
 
-    def morte (self):
-        self.som_morte.play()
+    
