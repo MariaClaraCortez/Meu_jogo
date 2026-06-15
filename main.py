@@ -3,6 +3,7 @@ import random
 from caminho_relativo import resource_path
 from classe_inimigo import Inimigo
 from classe_jogador import Jogador
+from classe_barrinha import Bonus
 from classe_garrafinha import Vida
 
 
@@ -16,6 +17,8 @@ clock = pygame.time.Clock()
 tela = pygame.display.set_mode((1200,800))
 pygame.display.set_caption("Corida de Campeões")
 
+lista_bonus = [Bonus(resource_path('src/img/barrinha.png')),
+               Bonus(resource_path('src/img/barrinha.png'))]
 
 lista_vidas = [Vida(resource_path('src/img/garrafa_azul.png')),
                Vida(resource_path('src/img/garrafa_rosa.png')),
@@ -44,6 +47,7 @@ poder = False
 uso = 3
 pontos = 0
 vidas = 3
+bonus = Bonus()
 coelho = Jogador()
 fonte_texto = pygame.font.SysFont("Arial",20,True)
 fonte_text = pygame.font.SysFont("Segoe UI Emoji",18,True)
@@ -81,6 +85,11 @@ while rodando:
 
         coelho.andar(tecla_pressionada)
         coelho.exbir(tela)
+
+        for bonus in lista_bonus:
+            if coelho.mascara.overlap(bonus.mascara,(bonus.pos_imagem_x - coelho.pos_imagem_x,bonus.pos_imagem_y - coelho.pos_imagem_y)):
+                vida += 2
+
 
         for vida in lista_vidas:
             if poder == True:
@@ -134,7 +143,7 @@ while rodando:
             pontos = 0 
             uso = 3
 
-    if pontos == 7:
+    if pontos == 20:
             status_jogo = "VITORIA"
 
     if status_jogo == "VITORIA":

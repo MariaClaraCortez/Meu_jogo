@@ -7,8 +7,8 @@ class Jogador:
 
     def __init__(self):
 
-        self.lista_coelhos=[pygame.transform.scale(pygame.image.load(resource_path('src/img/indo_direita.png')),(150,200)),
-                            pygame.transform.scale(pygame.image.load(resource_path('src/img/indo_esquerda.png')),(150,200))]
+        self.lista_coelhos=[pygame.transform.scale(pygame.image.load(resource_path('src/img/indo_direita.png')),(130,180)),
+                            pygame.transform.scale(pygame.image.load(resource_path('src/img/indo_esquerda.png')),(130,180))]
         self.contador_de_sprite = 0
         self.sprite = self.lista_coelhos[self.contador_de_sprite]
         self.imagem = self.sprite
