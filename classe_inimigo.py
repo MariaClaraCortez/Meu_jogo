@@ -9,10 +9,10 @@ class Inimigo:
 
         self.pos_imagem_y = 0
         self. lugares = [300,400,500,600,700,800,900,1000]
-        self.pos_maca_x = random.choice(self.lugares)
+        self.pos_imagem_x = random.choice(self.lugares)
         self.velocidade = random.randint(5,8)
 
-        self.contorno = pygame.mask.from_surface(self.imagem)
+        self.mascara = pygame.mask.from_surface(self.imagem)
 
 
     def andar(self):

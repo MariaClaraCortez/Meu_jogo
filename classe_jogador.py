@@ -14,7 +14,7 @@ class Jogador:
         self.imagem = pygame.transform.scale(self.imagem,(200,200))
         self.mascara = pygame.mask.from_surface(self.imagem)
 
-        self.pos_imagem_x = 520
+        self.pos_imagem_x = 100
         self.pos_imagem_y = 520
         
 
@@ -31,6 +31,6 @@ class Jogador:
 
     def voltar (self):
         self.pos_imagem_x = 100
-        self.pos_imagem_y = 100
+        self.pos_imagem_y = 520
 
     

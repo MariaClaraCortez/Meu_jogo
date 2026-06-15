@@ -22,11 +22,18 @@ lista_vidas = [Vida(resource_path('src/img/garrafa_azul.png')),
                Vida(resource_path('src/img/garrafa_verde.png')),
                Vida(resource_path('src/img/garrafa_vermelha.png'))]
 
+lista_inimigos = [Inimigo(resource_path('src/img/refri.png')),
+                  Inimigo(resource_path('src/img/hamburguer.png')),
+                  Inimigo(resource_path('src/img/batata.png'))]
+
 status_jogo = "INICIO"
 
-fundo = pygame.image.load(resource_path("src/img/fundo.png"))
+fundo = pygame.image.load(resource_path("src/img/fundo2.png"))
 fundo = pygame.transform.scale(fundo,(1200,800))
-inicio = pygame.image.load(resource_path("src/img/inicio.png"))
+inicio = pygame.image.load(resource_path(""))
+perdeu = pygame.image.load(resource_path("src/img/perdeu.png"))
+ganhou = pygame.image.load(resource_path("src/img/ganhou.png"))
+
 
 
 
@@ -71,19 +78,39 @@ while rodando:
             vida.andar()
             vida.exibir(tela)
 
-            if coelho.contorno.overlap(vida.contorno,(vida.pos_imagem_x - coelho.pos_imagem_x,vida.pos_imagem_y - coelho.pos_imagem_y)):
-                mortes += 1
+            if coelho.mascara.overlap(vida.mascara,(vida.pos_imagem_x - coelho.pos_imagem_x,vida.pos_imagem_y - coelho.pos_imagem_y)):
+                pontos += 1
                 vida.voltar()
         for inimigo in lista_inimigos:
             inimigo.andar()
             inimigo.exibir(tela)
 
-            if coelho.contorno.overlap(inimigo.contorno,(inimigo.pos_imagem_x - coelho.pos_imagem_x,inimigo.pos_maca_y - coelho.pos_imagem_y)):
-                mortes -= 1
-                coelho.morte()
+            if coelho.mascara.overlap(inimigo.mascara,(inimigo.pos_imagem_x - coelho.pos_imagem_x,inimigo.pos_imagem_y - coelho.pos_imagem_y)):
+                vidas -= 1
+                inimigo.voltar()
+                inimigo.exibir(tela)
                 coelho.voltar()
-                if mortes == 0:
+                if vidas == 0:
                     status_jogo = "PERDEU"
+    
+    if status_jogo == "PERDEU":
+        tela.blit(perdeu,(0,0))
+        if tecla_pressionada [pygame.K_RETURN]or tecla_pressionada [pygame.K_KP_ENTER]:
+            status_jogo = "INICIO"
+            vidas = 3
+            pontos = 0 
+
+    if pontos == 7:
+            status_jogo = "VITORIA"
+
+    if status_jogo == "VITORIA":
+        tela.blit(ganhou,(0,0))
+        if tecla_pressionada [pygame.K_RETURN]or tecla_pressionada [pygame.K_KP_ENTER]:
+            status_jogo = "INICIO"
+            vidas = 3
+            pontos = 0                   
+            
+
 
 
   
