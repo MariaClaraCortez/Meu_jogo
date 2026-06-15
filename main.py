@@ -17,8 +17,7 @@ clock = pygame.time.Clock()
 tela = pygame.display.set_mode((1200,800))
 pygame.display.set_caption("Corida de Campeões")
 
-lista_bonus = [Bonus(resource_path('src/img/barrinha.png')),
-               Bonus(resource_path('src/img/barrinha.png'))]
+
 
 lista_vidas = [Vida(resource_path('src/img/garrafa_azul.png')),
                Vida(resource_path('src/img/garrafa_rosa.png')),
@@ -39,6 +38,8 @@ inicio = pygame.transform.scale(inicio,(1200,800))
 perdeu = pygame.image.load(resource_path("src/img/perdeu.png"))
 ganhou = pygame.image.load(resource_path("src/img/ganhou.png"))
 
+lista_bonus = [Bonus(resource_path('src/img/barrinha.png')),
+               Bonus(resource_path('src/img/barrinha.png'))]
 
 
 segundos = 5
