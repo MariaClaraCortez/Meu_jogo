@@ -1,4 +1,5 @@
 import pygame
+import random
 from caminho_relativo import resource_path
 from classe_inimigo import Inimigo
 from classe_jogador import Jogador
@@ -13,7 +14,7 @@ clock = pygame.time.Clock()
 
 #cria a janela do jogo
 tela = pygame.display.set_mode((1200,800))
-pygame.display.set_caption("Beber ou Morrer")
+pygame.display.set_caption("Corida de Campeões")
 
 
 lista_vidas = [Vida(resource_path('src/img/garrafa_azul.png')),
@@ -30,13 +31,17 @@ status_jogo = "INICIO"
 
 fundo = pygame.image.load(resource_path("src/img/fundo2.png"))
 fundo = pygame.transform.scale(fundo,(1200,800))
-inicio = pygame.image.load(resource_path(""))
+inicio = pygame.image.load(resource_path("src/img/inicio2.png"))
+inicio = pygame.transform.scale(inicio,(1200,800))
 perdeu = pygame.image.load(resource_path("src/img/perdeu.png"))
 ganhou = pygame.image.load(resource_path("src/img/ganhou.png"))
 
 
 
-
+segundos = 5
+conta = 0
+poder = False
+uso = 3
 pontos = 0
 vidas = 3
 coelho = Jogador()
@@ -69,12 +74,17 @@ while rodando:
         tela.blit(texto_vidas,(500,65))
         texto_pontos =fonte_texto.render(f"PONTOS: {pontos}",False,(0,0,0))
         tela.blit(texto_pontos,(520,40))
+        texto_poderes = fonte_texto.render(f"PODERES: {uso}",False,(0,0,0))
+        tela.blit(texto_poderes,(100,755))
+
 
 
         coelho.andar(tecla_pressionada)
         coelho.exbir(tela)
 
         for vida in lista_vidas:
+            if poder == True:
+                vida.velocidade = random.randint(9,15)
             vida.andar()
             vida.exibir(tela)
 
@@ -82,8 +92,12 @@ while rodando:
                 pontos += 1
                 vida.voltar()
         for inimigo in lista_inimigos:
-            inimigo.andar()
-            inimigo.exibir(tela)
+            if poder == False:
+                inimigo.andar()
+                inimigo.exibir(tela)
+            else:
+                inimigo.voltar()
+
 
             if coelho.mascara.overlap(inimigo.mascara,(inimigo.pos_imagem_x - coelho.pos_imagem_x,inimigo.pos_imagem_y - coelho.pos_imagem_y)):
                 vidas -= 1
@@ -92,13 +106,33 @@ while rodando:
                 coelho.voltar()
                 if vidas == 0:
                     status_jogo = "PERDEU"
+
     
+        if tecla_pressionada [pygame.K_SPACE] and uso >=1 and poder == False:
+            poder = True
+            uso -=1
+        
+        if poder == True:
+            conta += 1 
+            texto_segundos = fonte_texto.render(f"SEGUNDOS: {segundos}",False,(0,0,0))
+            tela.blit(texto_segundos,(220,755))
+            if conta >= 60:
+                segundos -= 1
+                conta = 0
+            if segundos <= 0:
+                segundos = 5
+                poder = False
+
+            
+
+        print(segundos)
     if status_jogo == "PERDEU":
         tela.blit(perdeu,(0,0))
         if tecla_pressionada [pygame.K_RETURN]or tecla_pressionada [pygame.K_KP_ENTER]:
             status_jogo = "INICIO"
             vidas = 3
             pontos = 0 
+            uso = 3
 
     if pontos == 7:
             status_jogo = "VITORIA"
@@ -108,7 +142,9 @@ while rodando:
         if tecla_pressionada [pygame.K_RETURN]or tecla_pressionada [pygame.K_KP_ENTER]:
             status_jogo = "INICIO"
             vidas = 3
-            pontos = 0                   
+            pontos = 0 
+            uso = 3                  
+
             
 
 
@@ -116,7 +152,7 @@ while rodando:
   
     pygame.display.update()
     
-    clock.tick(100)
+    clock.tick(60)
 
 
 
