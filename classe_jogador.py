@@ -13,6 +13,8 @@ class Jogador:
         self.sprite = self.lista_coelhos[self.contador_de_sprite]
         self.imagem = self.sprite
         self.mascara = pygame.mask.from_surface(self.imagem)
+        self.som_morte = pygame.mixer.Sound(resource_path("sons/perdeu.mp3"))
+        self.som_vitoria = pygame.mixer.Sound(resource_path("sons/ganhou.mp3"))
 
         self.pos_imagem_x = 100
         self.pos_imagem_y = 520
@@ -39,4 +41,9 @@ class Jogador:
         self.pos_imagem_x = 100
         self.pos_imagem_y = 520
 
+    def morte (self):
+        self.som_morte.play()
+
+    def vitoria (self):
+        self.som_vitoria.play()
     

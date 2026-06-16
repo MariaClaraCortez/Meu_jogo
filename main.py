@@ -119,7 +119,9 @@ while rodando:
                 inimigo.exibir(tela)
                 coelho.voltar()
                 if vidas == 0:
+                    coelho.morte()
                     status_jogo = "PERDEU"
+
 
     
         if tecla_pressionada [pygame.K_SPACE] and uso >=1 and poder == False:
@@ -149,6 +151,7 @@ while rodando:
             uso = 3
             
     if pontos == 20:
+            coelho.vitoria()
             status_jogo = "VITORIA"
 
     if status_jogo == "VITORIA":
