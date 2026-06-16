@@ -87,10 +87,11 @@ while rodando:
 
         for bonus in lista_bonus:
             if poder == False:
+                bonus.velocidade = random.randint(3,8)
                 bonus.andar()
                 bonus.exibir(tela)
                 if coelho.mascara.overlap(bonus.mascara,(bonus.pos_imagem_x - coelho.pos_imagem_x,bonus.pos_imagem_y - coelho.pos_imagem_y)):
-                    vidas += 2
+                    vidas += 1
                     bonus.voltar()
 
 
@@ -146,7 +147,7 @@ while rodando:
             vidas = 3
             pontos = 0 
             uso = 3
-
+            
     if pontos == 20:
             status_jogo = "VITORIA"
 
