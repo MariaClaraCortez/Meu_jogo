@@ -38,8 +38,7 @@ inicio = pygame.transform.scale(inicio,(1200,800))
 perdeu = pygame.image.load(resource_path("src/img/perdeu.png"))
 ganhou = pygame.image.load(resource_path("src/img/ganhou.png"))
 
-lista_bonus = [Bonus(resource_path('src/img/barrinha.png')),
-               Bonus(resource_path('src/img/barrinha.png'))]
+lista_bonus = [Vida(resource_path('src/img/barrinha.png'))]
 
 
 segundos = 5
@@ -48,7 +47,6 @@ poder = False
 uso = 3
 pontos = 0
 vidas = 3
-bonus = Bonus()
 coelho = Jogador()
 fonte_texto = pygame.font.SysFont("Arial",20,True)
 fonte_text = pygame.font.SysFont("Segoe UI Emoji",18,True)
@@ -88,8 +86,13 @@ while rodando:
         coelho.exbir(tela)
 
         for bonus in lista_bonus:
-            if coelho.mascara.overlap(bonus.mascara,(bonus.pos_imagem_x - coelho.pos_imagem_x,bonus.pos_imagem_y - coelho.pos_imagem_y)):
-                vida += 2
+            if poder == False:
+                bonus.andar()
+                bonus.exibir(tela)
+                if coelho.mascara.overlap(bonus.mascara,(bonus.pos_imagem_x - coelho.pos_imagem_x,bonus.pos_imagem_y - coelho.pos_imagem_y)):
+                    vidas += 2
+                    bonus.voltar()
+
 
 
         for vida in lista_vidas:

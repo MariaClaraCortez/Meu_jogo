@@ -13,3 +13,6 @@ class Bonus:
         self.velocidade = random.randint(5,8)
 
         self.mascara = pygame.mask.from_surface(self.imagem)
+
+    def exibir(self, tela_do_jogo):
+        tela_do_jogo.blit(self.imagem,(self.pos_imagem_x,self.pos_imagem_y))
