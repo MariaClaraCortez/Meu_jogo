@@ -67,6 +67,7 @@ while rodando:
     tecla_pressionada = pygame.key.get_pressed()
 
     if status_jogo == "INICIO":
+        coelho.inicio()
         tela.blit(inicio,(0,0))
         if tecla_pressionada [pygame.K_RETURN] or tecla_pressionada [pygame.K_KP_ENTER]:
             status_jogo = "JOGANDO"
@@ -115,6 +116,7 @@ while rodando:
 
 
             if coelho.mascara.overlap(inimigo.mascara,(inimigo.pos_imagem_x - coelho.pos_imagem_x,inimigo.pos_imagem_y - coelho.pos_imagem_y)):
+                inimigo.mordida()
                 vidas -= 1
                 inimigo.voltar()
                 inimigo.exibir(tela)
@@ -126,6 +128,7 @@ while rodando:
 
     
         if tecla_pressionada [pygame.K_SPACE] and uso >=1 and poder == False:
+            coelho.poder()
             poder = True
             uso -=1
         
@@ -141,8 +144,6 @@ while rodando:
                 poder = False
 
             
-
-        print(segundos)
     if status_jogo == "PERDEU":
         tela.blit(perdeu,(0,0))
         if tecla_pressionada [pygame.K_RETURN]or tecla_pressionada [pygame.K_KP_ENTER]:

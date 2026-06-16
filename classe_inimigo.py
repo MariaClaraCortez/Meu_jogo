@@ -1,11 +1,14 @@
 import pygame
 import random
+from caminho_relativo import resource_path
+
 
 class Inimigo:
     
     def __init__(self,endereco_imagem):
         self.imagem = pygame.image.load(endereco_imagem)
         self.imagem = pygame.transform.scale(self.imagem,(60,60))
+        self.som_mordida = pygame.mixer.Sound(resource_path("sons/mastigação.mp3"))
 
         self.pos_imagem_y = 0
         self. lugares = [300,400,500,600,700,800,900,1000]
@@ -30,3 +33,6 @@ class Inimigo:
         self.pos_imagem_y = 0
         self.pos_imagem_x = random.choice(self.lugares)
         self.velocidade = random.randint(5,14)
+
+    def mordida (self):
+        self.som_mordida.play()
