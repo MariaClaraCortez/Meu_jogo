@@ -36,6 +36,7 @@ inicio = pygame.image.load(resource_path("src/img/inicio2.png"))
 inicio = pygame.transform.scale(inicio,(1200,800))
 perdeu = pygame.image.load(resource_path("src/img/perdeu.png"))
 ganhou = pygame.image.load(resource_path("src/img/ganhou.png"))
+pause = pygame.image.load(resource_path("src/img/pause.png"))
 
 lista_bonus = [Vida(resource_path('src/img/barrinha.png'))]
 
@@ -51,6 +52,7 @@ uso = 3
 pontos = 0
 vidas = 3
 coelho = Jogador()
+cont_sprite = 0
 fonte_texto = pygame.font.SysFont("Arial",20,True)
 fonte_text = pygame.font.SysFont("Segoe UI Emoji",18,True)
 
@@ -77,6 +79,7 @@ while rodando:
             status_jogo = "JOGANDO"
             som_inicio.stop()
     if status_jogo == "JOGANDO":
+        som_jogo.play()
         tela.blit(fundo,(0,0))
         texto_vidas =fonte_text.render(f"VIDAS: {'❤'*vidas}",False,(0,0,0))
         tela.blit(texto_vidas,(500,65))
@@ -86,8 +89,10 @@ while rodando:
         tela.blit(texto_poderes,(100,755))
 
 
-
-        coelho.andar(tecla_pressionada)
+        cont_sprite += 1
+        if cont_sprite > 10:
+            cont_sprite = 0
+        coelho.andar(tecla_pressionada,cont_sprite)
         coelho.exbir(tela)
 
         for bonus in lista_bonus:
@@ -96,6 +101,7 @@ while rodando:
                 bonus.andar()
                 bonus.exibir(tela)
                 if coelho.mascara.overlap(bonus.mascara,(bonus.pos_imagem_x - coelho.pos_imagem_x,bonus.pos_imagem_y - coelho.pos_imagem_y)):
+                    som_jogo.stop()
                     bonus.colidir()
                     vidas += 1
                     bonus.voltar()
@@ -128,6 +134,7 @@ while rodando:
                 coelho.voltar()
                 if vidas == 0:
                     coelho.morte()
+                    som_jogo.stop()
                     status_jogo = "PERDEU"
 
 
@@ -147,8 +154,16 @@ while rodando:
             if segundos <= 0:
                 segundos = 5
                 poder = False
+    if tecla_pressionada[pygame.K_q]:
+        status_jogo = "PAUSE"
 
-            
+    if status_jogo == "PAUSE":
+        tela.blit(pause,(0,0))
+        if tecla_pressionada [pygame.K_RETURN]or tecla_pressionada [pygame.K_KP_ENTER]:
+            status_jogo = "JOGANDO"
+        if tecla_pressionada [pygame.K_ESCAPE]: 
+            rodando = False
+
     if status_jogo == "PERDEU":
         tela.blit(perdeu,(0,0))
         if tecla_pressionada [pygame.K_RETURN]or tecla_pressionada [pygame.K_KP_ENTER]:
@@ -158,6 +173,7 @@ while rodando:
             uso = 3
             
     if pontos == 20:
+            som_jogo.stop()
             som_vitoria.play()
             status_jogo = "VITORIA"
 

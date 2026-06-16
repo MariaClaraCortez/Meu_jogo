@@ -9,6 +9,8 @@ class Jogador:
 
         self.lista_coelhos=[pygame.transform.scale(pygame.image.load(resource_path('src/img/indo_direita.png')),(130,180)),
                             pygame.transform.scale(pygame.image.load(resource_path('src/img/indo_esquerda.png')),(130,180))]
+        
+        self.coelho_parado = pygame.transform.scale(pygame.image.load(resource_path('src/img/parado.png')),(130,180))
         self.contador_de_sprite = 0
         self.sprite = self.lista_coelhos[self.contador_de_sprite]
         self.imagem = self.sprite
@@ -20,19 +22,23 @@ class Jogador:
         self.pos_imagem_y = 520
         
 
-    def andar(self,tecla_pressionada):
+    def andar(self,tecla_pressionada,contador):
         if tecla_pressionada[pygame.K_RIGHT] or tecla_pressionada [pygame.K_LEFT]:
-            self.contador_de_sprite += 1
-            if self.contador_de_sprite > 1:
-                self.contador_de_sprite = 0
+            if contador > 9:
+                self.contador_de_sprite += 1
+                if self.contador_de_sprite > 1:
+                    self.contador_de_sprite = 0
             self.imagem = self.lista_coelhos[self.contador_de_sprite]
-        if tecla_pressionada [pygame.K_RIGHT]:  
-            if self.pos_imagem_x < 1200 - self.imagem.get_width():
-             self.pos_imagem_x +=10
-        if tecla_pressionada [pygame.K_LEFT]:
-            if self.pos_imagem_x > 0:
-                self.pos_imagem_x = self.pos_imagem_x - 10
-                self.imagem = pygame.transform.flip(self.imagem,True,False)
+            if tecla_pressionada [pygame.K_RIGHT]:  
+                if self.pos_imagem_x < 1200 - self.imagem.get_width():
+                    self.pos_imagem_x +=10
+            if tecla_pressionada [pygame.K_LEFT]:
+                if self.pos_imagem_x > 0:
+                    self.pos_imagem_x = self.pos_imagem_x - 10
+                    self.imagem = pygame.transform.flip(self.imagem,True,False)
+        else:
+            self.imagem = self.coelho_parado
+
     
     def exbir(self,tela_do_jogo):
         tela_do_jogo.blit(self.imagem,(self.pos_imagem_x,self.pos_imagem_y))
