@@ -3,7 +3,6 @@ import random
 from caminho_relativo import resource_path
 from classe_inimigo import Inimigo
 from classe_jogador import Jogador
-from classe_barrinha import Bonus
 from classe_garrafinha import Vida
 
 
@@ -91,6 +90,7 @@ while rodando:
                 bonus.andar()
                 bonus.exibir(tela)
                 if coelho.mascara.overlap(bonus.mascara,(bonus.pos_imagem_x - coelho.pos_imagem_x,bonus.pos_imagem_y - coelho.pos_imagem_y)):
+                    bonus.colidir()
                     vidas += 1
                     bonus.voltar()
 
@@ -103,6 +103,7 @@ while rodando:
             vida.exibir(tela)
 
             if coelho.mascara.overlap(vida.mascara,(vida.pos_imagem_x - coelho.pos_imagem_x,vida.pos_imagem_y - coelho.pos_imagem_y)):
+                vida.beber()
                 pontos += 1
                 vida.voltar()
         for inimigo in lista_inimigos:

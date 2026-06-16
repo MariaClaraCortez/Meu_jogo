@@ -1,11 +1,14 @@
 import pygame
 import random
+from caminho_relativo import resource_path
 
 class Vida:
     
     def __init__(self,endereco_imagem):
         self.imagem = pygame.image.load(endereco_imagem)
         self.imagem = pygame.transform.scale(self.imagem,(60,60))
+        self.som_colidir = pygame.mixer.Sound(resource_path("sons/bonus.mp3"))
+        self.som_beber = pygame.mixer.Sound(resource_path("sons/beber.mp3"))
 
         self.pos_imagem_y = 0
         self. lugares = [300,400,500,600,700,800,900,1000]
@@ -30,3 +33,9 @@ class Vida:
         self.pos_imagem_y = 0
         self.pos_imagem_x = random.choice(self.lugares)
         self.velocidade = random.randint(5,14)
+
+    def colidir (self):
+        self.som_colidir.play()
+
+    def beber (self):
+        self.som_beber.play()
