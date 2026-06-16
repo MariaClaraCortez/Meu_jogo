@@ -14,10 +14,7 @@ class Jogador:
         self.imagem = self.sprite
         self.mascara = pygame.mask.from_surface(self.imagem)
         self.som_morte = pygame.mixer.Sound(resource_path("sons/perdeu.mp3"))
-        self.som_vitoria = pygame.mixer.Sound(resource_path("sons/ganhou.mp3"))
-        self.som_poder = pygame.mixer.Sound(resource_path("sons/poder.mp3"))
-        self.som_inicio = pygame.mixer.Sound(resource_path("sons/inicio.mp3"))
-        self.som_jogo = pygame.mixer.Sound(resource_path("sons/jogo.mp3"))
+
 
         self.pos_imagem_x = 100
         self.pos_imagem_y = 520
@@ -46,15 +43,3 @@ class Jogador:
 
     def morte (self):
         self.som_morte.play()
-
-    def vitoria (self):
-        self.som_vitoria.play()
-    
-    def poder (self):
-        self.som_poder.play()
-
-    def inicio (self):
-        self.som_inicio.play()
-    
-    def jogo (self):
-        self.som_jogo.play()

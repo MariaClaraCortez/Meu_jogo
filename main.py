@@ -39,6 +39,10 @@ ganhou = pygame.image.load(resource_path("src/img/ganhou.png"))
 
 lista_bonus = [Vida(resource_path('src/img/barrinha.png'))]
 
+som_vitoria = pygame.mixer.Sound(resource_path("sons/ganhou.mp3"))
+som_poder = pygame.mixer.Sound(resource_path("sons/poder.mp3"))
+som_inicio = pygame.mixer.Sound(resource_path("sons/inicio.mp3"))
+som_jogo = pygame.mixer.Sound(resource_path("sons/jogo.mp3"))
 
 segundos = 5
 conta = 0
@@ -67,10 +71,11 @@ while rodando:
     tecla_pressionada = pygame.key.get_pressed()
 
     if status_jogo == "INICIO":
-        coelho.inicio()
+        som_inicio.play()
         tela.blit(inicio,(0,0))
         if tecla_pressionada [pygame.K_RETURN] or tecla_pressionada [pygame.K_KP_ENTER]:
             status_jogo = "JOGANDO"
+            som_inicio.stop()
     if status_jogo == "JOGANDO":
         tela.blit(fundo,(0,0))
         texto_vidas =fonte_text.render(f"VIDAS: {'❤'*vidas}",False,(0,0,0))
@@ -128,7 +133,7 @@ while rodando:
 
     
         if tecla_pressionada [pygame.K_SPACE] and uso >=1 and poder == False:
-            coelho.poder()
+            som_poder.play()
             poder = True
             uso -=1
         
@@ -153,7 +158,7 @@ while rodando:
             uso = 3
             
     if pontos == 20:
-            coelho.vitoria()
+            som_vitoria.play()
             status_jogo = "VITORIA"
 
     if status_jogo == "VITORIA":
