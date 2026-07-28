@@ -1,6 +1,6 @@
 import pygame
 import random
-from caminho_relativo import resource_path
+from caminho_relativo import resource_path  # posso colocar  (as pr) para abreviar
 from classe_inimigo import Inimigo
 from classe_jogador import Jogador
 from classe_garrafinha import Vida
@@ -87,9 +87,7 @@ while rodando:
         tela.blit(texto_pontos,(520,40))
         texto_poderes = fonte_texto.render(f"PODERES: {uso}",False,(0,0,0))
         tela.blit(texto_poderes,(100,755))
-        texto_pausa = fonte_texto.render('Aperte Q para pausar',False,(0,0,0))
-        tela.blit(texto_pausa,(900,55))
-
+        
 
         cont_sprite += 1
         if cont_sprite > 10:
